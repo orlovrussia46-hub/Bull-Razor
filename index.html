@@ -216,10 +216,39 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+.socials a {
+  padding: 12px 22px;
+  border: 1px solid #00ff9c;
+  border-radius: 30px;
+  box-shadow: 0 0 15px rgba(0,255,156,.4);
+  transition: all .3s ease;
+}
+
+.socials a:hover {
+  background: #00ff9c;
+  color: black;
+  box-shadow: 0 0 30px #00ff9c;
+}
+
+.logo {
+  font-size: 1.1rem;
+}
+
 </style>
 </head>
 
 <body>
+<nav class="nav">
+  <div class="logo neon">BullRaizer</div>
+
+  <div class="nav-links">
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#socials">Socials</a>
+    <a href="#buy">Buy</a>
+  </div>
+</nav>
 
 <nav class="nav">
   <div class="logo">BullRaizer</div>
@@ -239,10 +268,28 @@ footer {
 <div class="hero">
   <h1 class="neon">BullRaizer</h1>
   <p>Unleash the Bull. Cut the Bear.</p>
+
   <img src="assets/bull.png" class="bull">
+
+  <!-- Якорь для кнопки Buy -->
   <a id="buy"></a>
-  <a href="https://jup.ag" class="buy-btn">BUY ON SOLANA DEX</a>
+
+  <!-- Buy -->
+  <a href="https://jup.ag" class="buy-btn">
+    BUY ON SOLANA DEX
+  </a>
+
+  <!-- Phantom -->
+  <button id="connectWallet" class="buy-btn" style="margin-left:10px;">
+    CONNECT PHANTOM
+  </button>
+
+  <!-- Wallet text -->
+  <p id="walletAddress"
+     style="margin-top:15px; font-size:.75rem; opacity:.7;">
+  </p>
 </div>
+
 
 <div class="section">
   <h2 class="neon">Live Status</h2>
@@ -289,11 +336,18 @@ footer {
   <div class="roadmap-step">Phase 3 — Bull Domination</div>
 </div>
 
-<div class="section socials">
+<div class="section socials" id="socials">
   <h2 class="neon">Join the Herd</h2>
-  <a href="#">Telegram</a>
-  <a href="#">X</a>
+
+  <a href="https://t.me/BullRaizer" target="_blank" rel="noopener">
+    Telegram
+  </a>
+
+  <a href="https://x.com/BullRaizer" target="_blank" rel="noopener">
+    X (Twitter)
+  </a>
 </div>
+
 
 </div>
 
@@ -303,10 +357,6 @@ footer {
 </footer>
 
 <script>
-window.addEventListener('load', () => {
-  document.getElementById('preloader').style.display = 'none';
-});
-
 const slash = document.getElementById('slash');
 const bull = document.querySelector('.bull');
 const buyBtn = document.querySelector('.buy-btn');
@@ -319,29 +369,65 @@ function triggerSlash(){
   document.body.classList.add('shake');
 }
 
-bull.addEventListener('mouseenter', triggerSlash);
+if (bull) bull.addEventListener('mouseenter', triggerSlash);
 
-buyBtn.addEventListener('click', e => {
-  e.preventDefault();
-  triggerSlash();
-  setTimeout(() => {
-    window.location.href = buyBtn.href;
-  }, 300);
-});
+if (buyBtn) {
+  buyBtn.addEventListener('click', e => {
+    e.preventDefault();
+    triggerSlash();
+    setTimeout(() => {
+      window.open(buyBtn.href, "_blank");
+    }, 300);
+  });
+}
 
+// ===== SCROLL REVEAL =====
 const reveals = document.querySelectorAll('.reveal');
 
 function revealOnScroll() {
   reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
-      el.classList.add('active');
-    }
+    const top = el.getBoundingClientRect().top;
+    const trigger = window.innerHeight * 0.85;
+    if (top < trigger) el.classList.add('active');
   });
 }
 
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
+
+// ===== PHANTOM WALLET =====
+const connectBtn = document.getElementById('connectWallet');
+const walletText = document.getElementById('walletAddress');
+
+async function connectPhantom() {
+  if (!window.solana || !window.solana.isPhantom) {
+    alert("Install Phantom Wallet");
+    window.open("https://phantom.app/", "_blank");
+    return;
+  }
+
+  try {
+    const resp = await window.solana.connect();
+    const address = resp.publicKey.toString();
+
+    walletText.innerText =
+      "Connected: " +
+      address.slice(0,4) +
+      "..." +
+      address.slice(-4);
+
+    connectBtn.innerText = "CONNECTED";
+    connectBtn.style.opacity = "0.6";
+  } catch (e) {
+    console.log("Connection rejected");
+  }
+}
+
+if (connectBtn) {
+  connectBtn.addEventListener('click', connectPhantom);
+}
 </script>
+
 
 </body>
 </html>
