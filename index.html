@@ -20,9 +20,7 @@ body{
 
 /* ===== NAV ===== */
 .nav{
-  position:fixed;
-  top:0;
-  width:100%;
+  position:fixed;top:0;width:100%;
   padding:14px 24px;
   background:rgba(0,0,0,.7);
   backdrop-filter:blur(10px);
@@ -37,10 +35,7 @@ body{
   margin-left:18px;
   font-size:.85rem;
 }
-.logo{
-  color:#00ff9c;
-  text-shadow:0 0 12px #00ff9c;
-}
+.logo{color:#00ff9c;text-shadow:0 0 12px #00ff9c}
 
 /* ===== HERO ===== */
 .hero{
@@ -48,13 +43,8 @@ body{
   padding:120px 20px 40px;
   text-align:center;
 }
-.hero h1{
-  font-size:clamp(2.5rem,6vw,4rem)
-}
-.hero p{
-  opacity:.75;
-  margin-top:12px
-}
+.hero h1{font-size:clamp(2.5rem,6vw,4rem)}
+.hero p{opacity:.75;margin-top:12px}
 
 .bull{
   width:min(90%,320px);
@@ -81,14 +71,16 @@ body{
 }
 
 /* ===== SECTIONS ===== */
-.section{
-  text-align:center;
-  margin-top:90px;
-  padding:0 20px;
-}
-.neon{
-  color:#00ff9c;
-  text-shadow:0 0 12px #00ff9c;
+.section{text-align:center;margin-top:90px;padding:0 20px}
+.neon{color:#00ff9c;text-shadow:0 0 12px #00ff9c}
+
+/* ===== LORE ===== */
+.lore{
+  max-width:700px;
+  margin:30px auto 0;
+  font-size:.85rem;
+  opacity:.8;
+  line-height:1.7;
 }
 
 /* ===== NFT ===== */
@@ -108,22 +100,14 @@ body{
   box-shadow:0 0 25px rgba(0,255,156,.25);
   cursor:pointer;
 }
-.nft-card img{
-  width:100%;
-  border-radius:16px;
-}
+.nft-card img{width:100%;border-radius:16px}
+
 .nft-card::after{
   content:"";
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   border-radius:22px;
-  background:radial-gradient(
-    circle at var(--x,50%) var(--y,50%),
-    rgba(0,255,156,.35),
-    transparent 60%
-  );
-  opacity:0;
-  transition:.3s;
+  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(0,255,156,.35),transparent 60%);
+  opacity:0;transition:.3s;
 }
 .nft-card:hover::after{opacity:1}
 
@@ -172,7 +156,6 @@ body{
   color:#00ff9c;
   text-decoration:none;
   box-shadow:0 0 18px rgba(0,255,156,.4);
-  transition:.25s;
 }
 .socials a:hover{
   background:#00ff9c;
@@ -180,53 +163,36 @@ body{
 }
 
 /* ===== SLASH FX ===== */
+#slash,#flash{
+  pointer-events:none;
+}
 #slash{
   position:fixed;
   top:50%;
   left:-150%;
   width:300%;
   height:6px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #ff003c,
-    #a855f7,
-    #00ff9c,
-    transparent
-  );
+  background:linear-gradient(90deg,transparent,#ff003c,#a855f7,#00ff9c,transparent);
   box-shadow:0 0 40px #ff003c,0 0 80px #a855f7;
   transform:rotate(-15deg);
   opacity:0;
   z-index:9999;
-  pointer-events:none;
 }
-.slash-active{
-  animation:slash .2s ease-out forwards;
-}
+.slash-active{animation:slash .2s ease-out forwards}
 @keyframes slash{
   from{left:-150%;opacity:1}
   to{left:150%;opacity:0}
 }
-
 #flash{
-  position:fixed;
-  inset:0;
-  background:white;
-  opacity:0;
+  position:fixed;inset:0;
+  background:white;opacity:0;
   z-index:9998;
-  pointer-events:none;
 }
-.flash-active{
-  animation:flash .15s;
-}
+.flash-active{animation:flash .15s}
 @keyframes flash{
-  50%{opacity:.75}
+  50%{opacity:.8}
 }
-
-/* ===== SHAKE (умеренно) ===== */
-.shake{
-  animation:shake .18s;
-}
+.shake{animation:shake .18s}
 @keyframes shake{
   25%{transform:translate(-4px,2px)}
   50%{transform:translate(4px,-2px)}
@@ -234,11 +200,7 @@ body{
 }
 
 /* ===== FOOTER ===== */
-footer{
-  text-align:center;
-  margin:80px 0;
-  opacity:.6;
-}
+footer{text-align:center;margin:80px 0;opacity:.6}
 </style>
 </head>
 
@@ -263,6 +225,14 @@ footer{
   <h1 class="neon">BullRaizer</h1>
   <p>Unleash the Bull. Cut the Bear.</p>
 
+  <p class="lore">
+    When fear ruled the market and bears pushed everything into red,
+    one bull refused to kneel.<br><br>
+    BullRaizer is not a promise, not a roadmap to riches —
+    it is a symbol of conviction, volatility and culture.
+    A meme born from chaos, sharpened by belief.
+  </p>
+
   <img src="assets/bull.png" class="bull" alt="BullRaizer Bull">
 
   <a id="buy"></a>
@@ -273,46 +243,30 @@ footer{
 
 <div class="section" id="gallery">
   <h2 class="neon">BullRaizer Collection</h2>
-
   <div class="nft-grid">
-    <div class="nft-card">
-      <img src="assets/gallery/bull-1.webp" alt="BullRaizer NFT #001">
-      <div class="nft-info"><span>#001</span><span>COMMON</span></div>
-    </div>
-    <div class="nft-card">
-      <img src="assets/gallery/bull-2.webp" alt="BullRaizer NFT #002">
-      <div class="nft-info"><span>#002</span><span class="rare">RARE</span></div>
-    </div>
-    <div class="nft-card">
-      <img src="assets/gallery/bull-3.webp" alt="BullRaizer NFT #003">
-      <div class="nft-info"><span>#003</span><span class="epic">EPIC</span></div>
-    </div>
-    <div class="nft-card">
-      <img src="assets/gallery/bull-4.webp" alt="BullRaizer NFT #004">
-      <div class="nft-info"><span>#004</span><span>COMMON</span></div>
-    </div>
-    <div class="nft-card">
-      <img src="assets/gallery/bull-5.webp" alt="BullRaizer NFT #005">
-      <div class="nft-info"><span>#005</span><span class="legendary">LEGENDARY</span></div>
-    </div>
+    <div class="nft-card"><img src="assets/gallery/bull-1.webp" alt="BullRaizer NFT #001"><div class="nft-info"><span>#001</span><span>COMMON</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-2.webp" alt="BullRaizer NFT #002"><div class="nft-info"><span>#002</span><span class="rare">RARE</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-3.webp" alt="BullRaizer NFT #003"><div class="nft-info"><span>#003</span><span class="epic">EPIC</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-4.webp" alt="BullRaizer NFT #004"><div class="nft-info"><span>#004</span><span>COMMON</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-5.webp" alt="BullRaizer NFT #005"><div class="nft-info"><span>#005</span><span class="legendary">LEGENDARY</span></div></div>
   </div>
 </div>
 
 <div class="section" id="tokenomics">
   <h2 class="neon">Tokenomics</h2>
   <div class="cards">
-    <div class="card">🔥 Total Supply<br><b>1,000,000,000</b></div>
-    <div class="card">💧 Liquidity Pool<br><b>80%</b></div>
-    <div class="card">👥 Community<br><b>15%</b></div>
-    <div class="card">⚔️ Dev<br><b>5%</b></div>
+    <div class="card">🔥 Total Supply<br><b>1,000,000,000</b><br>100%</div>
+    <div class="card">💧 Liquidity Pool<br><b>800,000,000</b><br>80% (Locked)</div>
+    <div class="card">👥 Community & Airdrops<br><b>150,000,000</b><br>15%</div>
+    <div class="card">⚔️ Dev Allocation<br><b>50,000,000</b><br>5% (Vesting)</div>
   </div>
 </div>
 
 <div class="section" id="roadmap">
   <h2 class="neon">Roadmap</h2>
-  <div class="roadmap-step"><b>Phase I</b> — Launch & Chaos</div>
-  <div class="roadmap-step"><b>Phase II</b> — Herd Growth</div>
-  <div class="roadmap-step"><b>Phase III</b> — Bull Domination</div>
+  <div class="roadmap-step"><b>Phase I — Birth of the Bull</b><br>Launch, liquidity, fair distribution.</div>
+  <div class="roadmap-step"><b>Phase II — The Herd Forms</b><br>Community, culture, memes.</div>
+  <div class="roadmap-step"><b>Phase III — Bull Market</b><br>No promises. Just presence.</div>
 </div>
 
 <div class="section socials" id="socials">
@@ -327,51 +281,39 @@ footer{
 </footer>
 
 <script>
-const slash = document.getElementById('slash');
-const flash = document.getElementById('flash');
-const sound = document.getElementById('slashSound');
-const bull = document.querySelector('.bull');
+const slash=document.getElementById('slash');
+const flash=document.getElementById('flash');
+const sound=document.getElementById('slashSound');
+const bull=document.querySelector('.bull');
 
 function triggerFX(){
   slash.classList.remove('slash-active');
   flash.classList.remove('flash-active');
   document.body.classList.remove('shake');
-
   void slash.offsetWidth;
-
   slash.classList.add('slash-active');
   flash.classList.add('flash-active');
   document.body.classList.add('shake');
-
   if(sound){
-    sound.currentTime = 0;
+    sound.currentTime=0;
     sound.play().catch(()=>{});
   }
 }
 
-if(bull){
-  bull.addEventListener('mouseenter', triggerFX);
-  bull.addEventListener('click', triggerFX);
-}
+bull.addEventListener('click',triggerFX);
 
 /* NFT TILT */
 document.querySelectorAll('.nft-card').forEach(card=>{
   card.addEventListener('mousemove',e=>{
-    const r = card.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-
-    card.style.transform =
-      `rotateX(${-(y-r.height/2)/18}deg)
-       rotateY(${(x-r.width/2)/18}deg)
-       scale(1.06)`;
-
+    const r=card.getBoundingClientRect();
+    const x=e.clientX-r.left;
+    const y=e.clientY-r.top;
+    card.style.transform=`rotateX(${-(y-r.height/2)/18}deg) rotateY(${(x-r.width/2)/18}deg) scale(1.06)`;
     card.style.setProperty('--x',`${x}px`);
     card.style.setProperty('--y',`${y}px`);
   });
-
   card.addEventListener('mouseleave',()=>{
-    card.style.transform = 'scale(1)';
+    card.style.transform='scale(1)';
   });
 });
 </script>
