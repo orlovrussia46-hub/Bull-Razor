@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BullRaizer</title>
+<title>BullRazor</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
@@ -17,7 +17,7 @@ body{
   background:black;
   color:white;
   overflow-x:hidden;
-  user-select:none; /* защита от выделения */
+  user-select:none;
   -webkit-user-select:none;
 }
 
@@ -39,9 +39,7 @@ body{
   font-size:1rem;
   transition: 0.25s;
 }
-.nav a:hover{
-  color:#a855f7;
-}
+.nav a:hover{color:#a855f7;}
 .logo{color:#00ff9c;text-shadow:0 0 15px #00ff9c;font-size:1.5rem;font-weight:700}
 
 /* ===== HERO ===== */
@@ -61,11 +59,7 @@ body{
   animation:float 3s ease-in-out infinite;
   user-drag:none; -webkit-user-drag:none;
 }
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
-  100%{transform:translateY(0)}
-}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-15px)}100%{transform:translateY(0)}}
 
 /* ===== BUTTON ===== */
 .buy-btn{
@@ -121,14 +115,11 @@ body{
   box-shadow:0 0 25px rgba(0,255,156,.25);
   cursor:pointer;
   will-change:transform;
-  user-drag:none; -webkit-user-drag:none;
 }
 .nft-card img{
   width:100%;
   border-radius:16px;
-  pointer-events:none; /* защита от клика/сохранения */
 }
-
 .nft-card::after{
   content:"";
   position:absolute;inset:0;
@@ -137,12 +128,16 @@ body{
   opacity:0;transition:.3s;
 }
 .nft-card:hover::after{opacity:1}
-
 .nft-info{
   display:flex;
   justify-content:space-between;
   font-size:.8rem;
   margin-top:12px;
+}
+.nft-count{
+  margin-top:8px;
+  font-size:.75rem;
+  opacity:.8;
 }
 .rare{color:#00ff9c}
 .epic{color:#a855f7}
@@ -178,9 +173,7 @@ body{
   opacity:.9;
   transition:0.3s;
 }
-.roadmap-step:hover{
-  transform:translateX(5px);
-}
+.roadmap-step:hover{transform:translateX(5px);}
 
 /* ===== SOCIAL ===== */
 .socials a{
@@ -215,35 +208,25 @@ body{
   z-index:9999;
 }
 .slash-active{animation:slash .2s ease-out forwards}
-@keyframes slash{
-  from{left:-150%;opacity:1}
-  to{left:150%;opacity:0}
-}
+@keyframes slash{from{left:-150%;opacity:1}to{left:150%;opacity:0}}
 #flash{
   position:fixed;inset:0;
   background:white;opacity:0;
   z-index:9998;
 }
 .flash-active{animation:flash .15s}
-@keyframes flash{
-  50%{opacity:.8}
-}
+@keyframes flash{50%{opacity:.8}}
 .shake{animation:shake .18s}
-@keyframes shake{
-  25%{transform:translate(-4px,2px)}
-  50%{transform:translate(4px,-2px)}
-  75%{transform:translate(-3px,2px)}
-}
+@keyframes shake{25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-3px,2px)}}
 
 /* ===== FOOTER ===== */
 footer{text-align:center;margin:100px 0;opacity:.7}
 </style>
 </head>
-
 <body>
 
 <nav class="nav">
-  <div class="logo">BullRaizer</div>
+  <div class="logo">BullRazor</div>
   <div>
     <a href="#gallery">NFT</a>
     <a href="#tokenomics">Tokenomics</a>
@@ -258,18 +241,18 @@ footer{text-align:center;margin:100px 0;opacity:.7}
 <audio id="slashSound" src="assets/sounds/slash.mp3" preload="auto"></audio>
 
 <div class="hero">
-  <h1 class="neon">BullRaizer</h1>
+  <h1 class="neon">BullRazor</h1>
   <p>Unleash the Bull. Cut the Bear.</p>
 
   <p class="lore">
     When fear ruled the market and bears pushed everything into red,
     one bull refused to kneel.<br><br>
-    BullRaizer is not a promise, not a roadmap to riches — 
+    BullRazor is not a promise, not a roadmap to riches — 
     it is a symbol of conviction, volatility and culture.
     A meme born from chaos, sharpened by belief.
   </p>
 
-  <img src="assets/bull.png" class="bull" alt="BullRaizer Bull">
+  <img src="assets/bull.png" class="bull" alt="BullRazor Bull">
 
   <a id="buy"></a>
   <a href="https://jup.ag" target="_blank" class="buy-btn">
@@ -278,13 +261,9 @@ footer{text-align:center;margin:100px 0;opacity:.7}
 </div>
 
 <div class="section" id="gallery">
-  <h2 class="neon">BullRaizer Collection</h2>
-  <div class="nft-grid">
-    <div class="nft-card"><img src="assets/gallery/bull-1.webp" alt="BullRaizer NFT #001"><div class="nft-info"><span>#001</span><span>COMMON</span></div></div>
-    <div class="nft-card"><img src="assets/gallery/bull-2.webp" alt="BullRaizer NFT #002"><div class="nft-info"><span>#002</span><span class="rare">RARE</span></div></div>
-    <div class="nft-card"><img src="assets/gallery/bull-3.webp" alt="BullRaizer NFT #003"><div class="nft-info"><span>#003</span><span class="epic">EPIC</span></div></div>
-    <div class="nft-card"><img src="assets/gallery/bull-4.webp" alt="BullRaizer NFT #004"><div class="nft-info"><span>#004</span><span>COMMON</span></div></div>
-    <div class="nft-card"><img src="assets/gallery/bull-5.webp" alt="BullRaizer NFT #005"><div class="nft-info"><span>#005</span><span class="legendary">LEGENDARY</span></div></div>
+  <h2 class="neon">BullRazor Collection</h2>
+  <div class="nft-grid" id="nftGrid">
+    <!-- NFT карточки будут добавлены JS -->
   </div>
 </div>
 
@@ -307,14 +286,15 @@ footer{text-align:center;margin:100px 0;opacity:.7}
 
 <div class="section socials" id="socials">
   <h2 class="neon">Join the Herd</h2>
-  <a href="https://t.me/BullRaizer" target="_blank">Telegram</a>
-  <a href="https://x.com/BullRaizer" target="_blank">X (Twitter)</a>
+  <a href="https://t.me/BullRazor" target="_blank">Telegram</a>
+  <a href="https://x.com/BullRazor" target="_blank">X (Twitter)</a>
 </div>
 
 <footer>
-  Built on Solana ⚡ BullRaizer<br>
+  Built on Solana ⚡ BullRazor<br>
   <small>No financial advice. Meme only.</small>
 </footer>
+
 <script>
 // ===== SLASH FX =====
 const slash=document.getElementById('slash');
@@ -337,26 +317,57 @@ function triggerFX(){
 }
 bull.addEventListener('click',triggerFX);
 
-// ===== NFT TILT =====
-document.querySelectorAll('.nft-card').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left;
-    const y=e.clientY-r.top;
-    card.style.transform=`rotateX(${-(y-r.height/2)/18}deg) rotateY(${(x-r.width/2)/18}deg) scale(1.06)`;
-    card.style.setProperty('--x',`${x}px`);
-    card.style.setProperty('--y',`${y}px`);
-  });
-  card.addEventListener('mouseleave',()=>{
-    card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
-  });
-});
+// ===== NFT GENERATION =====
+const nftData = [
+  {id:'#001', img:'assets/gallery/bull-1.webp', rarity:'COMMON'},
+  {id:'#002', img:'assets/gallery/bull-2.webp', rarity:'RARE'},
+  {id:'#003', img:'assets/gallery/bull-3.webp', rarity:'EPIC'},
+  {id:'#004', img:'assets/gallery/bull-4.webp', rarity:'COMMON'},
+  {id:'#005', img:'assets/gallery/bull-5.webp', rarity:'LEGENDARY'},
+];
+const nftGrid = document.getElementById('nftGrid');
 
-// ===== RIGHT CLICK BLOCK =====
-document.addEventListener('contextmenu', e => {
-  if(e.target.tagName === 'IMG'){
-    e.preventDefault();
-    alert('Скачивание запрещено 😉');
+nftData.forEach(nft=>{
+  for(let i=1;i<=10;i++){ // по 10 штук каждой
+    const card = document.createElement('div');
+    card.className = 'nft-card';
+    card.innerHTML = `
+      <img src="${nft.img}" alt="BullRazor NFT ${nft.id}-${i}">
+      <div class="nft-info"><span>${nft.id}-${i}</span><span class="${nft.rarity.toLowerCase()}">${nft.rarity}</span></div>
+      <div class="nft-count">Available: 10</div>
+      <button class="buy-btn" style="margin-top:8px;">Buy NFT</button>
+    `;
+    nftGrid.appendChild(card);
+
+    const btn = card.querySelector('button');
+    const countDiv = card.querySelector('.nft-count');
+    let available = 10;
+    btn.addEventListener('click', ()=>{
+      if(available>0){
+        available--;
+        countDiv.textContent = `Available: ${available}`;
+        alert(`You bought 1 ${nft.id}-${i}!`);
+      } else {
+        alert('Sold out!');
+      }
+    });
+
+    // ===== NFT TILT =====
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=e.clientX-r.left;
+      const y=e.clientY-r.top;
+      card.style.transform=`rotateX(${-(y-r.height/2)/18}deg) rotateY(${(x-r.width/2)/18}deg) scale(1.06)`;
+      card.style.setProperty('--x',`${x}px`);
+      card.style.setProperty('--y',`${y}px`);
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';});
+
+    // ===== RIGHT CLICK BLOCK =====
+    card.addEventListener('contextmenu', e=>{
+      e.preventDefault();
+      alert('Скачивание запрещено 😉');
+    });
   }
 });
 </script>
