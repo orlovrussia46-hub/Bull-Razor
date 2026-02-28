@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+/* ===== RESET ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -16,14 +17,16 @@ body{
   background:black;
   color:white;
   overflow-x:hidden;
+  user-select:none; /* защита от выделения */
+  -webkit-user-select:none;
 }
 
 /* ===== NAV ===== */
 .nav{
   position:fixed;top:0;width:100%;
-  padding:14px 24px;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(10px);
+  padding:16px 50px;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(12px);
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -32,53 +35,71 @@ body{
 .nav a{
   color:#00ff9c;
   text-decoration:none;
-  margin-left:18px;
-  font-size:.85rem;
+  margin-left:20px;
+  font-size:1rem;
+  transition: 0.25s;
 }
-.logo{color:#00ff9c;text-shadow:0 0 12px #00ff9c}
+.nav a:hover{
+  color:#a855f7;
+}
+.logo{color:#00ff9c;text-shadow:0 0 15px #00ff9c;font-size:1.5rem;font-weight:700}
 
 /* ===== HERO ===== */
 .hero{
   min-height:100vh;
-  padding:120px 20px 40px;
+  padding:160px 60px 60px;
   text-align:center;
 }
-.hero h1{font-size:clamp(2.5rem,6vw,4rem)}
-.hero p{opacity:.75;margin-top:12px}
+.hero h1{font-size:clamp(3rem,6vw,5rem)}
+.hero p{opacity:.8;margin-top:16px;line-height:1.6}
 
 .bull{
-  width:min(90%,320px);
-  margin:40px auto;
+  width:min(20%,300px);
+  max-width:320px;
+  margin:50px auto;
   cursor:pointer;
   animation:float 3s ease-in-out infinite;
+  user-drag:none; -webkit-user-drag:none;
 }
 @keyframes float{
   0%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
+  50%{transform:translateY(-15px)}
   100%{transform:translateY(0)}
 }
 
 /* ===== BUTTON ===== */
 .buy-btn{
   display:inline-block;
-  margin-top:20px;
-  padding:14px 36px;
+  margin-top:25px;
+  padding:16px 42px;
   border:2px solid #a855f7;
   color:#a855f7;
-  border-radius:40px;
+  border-radius:50px;
   text-decoration:none;
-  box-shadow:0 0 25px #a855f7;
+  box-shadow:0 0 30px #a855f7;
+  transition:0.3s;
+}
+.buy-btn:hover{
+  background:#a855f7;
+  color:black;
+  transform:translateY(-3px);
+  box-shadow:0 0 50px #a855f7,0 0 80px #a855f7;
 }
 
 /* ===== SECTIONS ===== */
-.section{text-align:center;margin-top:90px;padding:0 20px}
-.neon{color:#00ff9c;text-shadow:0 0 12px #00ff9c}
+.section{
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 60px;
+  text-align:center;
+}
+.neon{color:#00ff9c;text-shadow:0 0 15px #00ff9c}
 
 /* ===== LORE ===== */
 .lore{
-  max-width:700px;
+  max-width:800px;
   margin:30px auto 0;
-  font-size:.85rem;
+  font-size:0.95rem;
   opacity:.8;
   line-height:1.7;
 }
@@ -86,21 +107,27 @@ body{
 /* ===== NFT ===== */
 .nft-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:22px;
-  margin-top:40px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+  margin-top:50px;
 }
 .nft-card{
   position:relative;
   background:linear-gradient(145deg,#0a0a0a,#111);
   border-radius:22px;
-  padding:10px;
+  padding:12px;
   transform-style:preserve-3d;
-  transition:.35s;
+  transition:0.35s;
   box-shadow:0 0 25px rgba(0,255,156,.25);
   cursor:pointer;
+  will-change:transform;
+  user-drag:none; -webkit-user-drag:none;
 }
-.nft-card img{width:100%;border-radius:16px}
+.nft-card img{
+  width:100%;
+  border-radius:16px;
+  pointer-events:none; /* защита от клика/сохранения */
+}
 
 .nft-card::after{
   content:"";
@@ -114,58 +141,67 @@ body{
 .nft-info{
   display:flex;
   justify-content:space-between;
-  font-size:.75rem;
-  margin-top:10px;
+  font-size:.8rem;
+  margin-top:12px;
 }
 .rare{color:#00ff9c}
 .epic{color:#a855f7}
-.legendary{color:#ff003c;text-shadow:0 0 10px #ff003c}
+.legendary{color:#ff003c;text-shadow:0 0 12px #ff003c}
 
 /* ===== TOKENOMICS ===== */
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:22px;
-  margin-top:35px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+  margin-top:50px;
 }
 .card{
   border:1px solid #00ff9c;
-  border-radius:20px;
-  padding:26px;
-  box-shadow:0 0 20px rgba(0,255,156,.25);
-  font-size:.85rem;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 0 25px rgba(0,255,156,.3);
+  font-size:.95rem;
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 45px rgba(0,255,156,.5);
 }
 
 /* ===== ROADMAP ===== */
 .roadmap-step{
-  max-width:600px;
-  margin:20px auto;
-  padding-left:16px;
-  border-left:3px solid #ff003c;
+  max-width:700px;
+  margin:25px auto;
+  padding-left:20px;
+  border-left:4px solid #ff003c;
   text-align:left;
   opacity:.9;
+  transition:0.3s;
+}
+.roadmap-step:hover{
+  transform:translateX(5px);
 }
 
 /* ===== SOCIAL ===== */
 .socials a{
   display:inline-block;
-  margin:10px;
-  padding:14px 26px;
+  margin:12px;
+  padding:16px 30px;
   border:1px solid #00ff9c;
-  border-radius:30px;
+  border-radius:35px;
   color:#00ff9c;
   text-decoration:none;
-  box-shadow:0 0 18px rgba(0,255,156,.4);
+  box-shadow:0 0 22px rgba(0,255,156,.4);
+  transition:0.3s;
 }
 .socials a:hover{
   background:#00ff9c;
   color:black;
+  transform:translateY(-3px);
 }
 
 /* ===== SLASH FX ===== */
-#slash,#flash{
-  pointer-events:none;
-}
+#slash,#flash{pointer-events:none}
 #slash{
   position:fixed;
   top:50%;
@@ -200,7 +236,7 @@ body{
 }
 
 /* ===== FOOTER ===== */
-footer{text-align:center;margin:80px 0;opacity:.6}
+footer{text-align:center;margin:100px 0;opacity:.7}
 </style>
 </head>
 
@@ -228,7 +264,7 @@ footer{text-align:center;margin:80px 0;opacity:.6}
   <p class="lore">
     When fear ruled the market and bears pushed everything into red,
     one bull refused to kneel.<br><br>
-    BullRaizer is not a promise, not a roadmap to riches —
+    BullRaizer is not a promise, not a roadmap to riches — 
     it is a symbol of conviction, volatility and culture.
     A meme born from chaos, sharpened by belief.
   </p>
@@ -279,8 +315,8 @@ footer{text-align:center;margin:80px 0;opacity:.6}
   Built on Solana ⚡ BullRaizer<br>
   <small>No financial advice. Meme only.</small>
 </footer>
-
 <script>
+// ===== SLASH FX =====
 const slash=document.getElementById('slash');
 const flash=document.getElementById('flash');
 const sound=document.getElementById('slashSound');
@@ -299,10 +335,9 @@ function triggerFX(){
     sound.play().catch(()=>{});
   }
 }
-
 bull.addEventListener('click',triggerFX);
 
-/* NFT TILT */
+// ===== NFT TILT =====
 document.querySelectorAll('.nft-card').forEach(card=>{
   card.addEventListener('mousemove',e=>{
     const r=card.getBoundingClientRect();
@@ -313,8 +348,16 @@ document.querySelectorAll('.nft-card').forEach(card=>{
     card.style.setProperty('--y',`${y}px`);
   });
   card.addEventListener('mouseleave',()=>{
-    card.style.transform='scale(1)';
+    card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
   });
+});
+
+// ===== RIGHT CLICK BLOCK =====
+document.addEventListener('contextmenu', e => {
+  if(e.target.tagName === 'IMG'){
+    e.preventDefault();
+    alert('Скачивание запрещено 😉');
+  }
 });
 </script>
 
