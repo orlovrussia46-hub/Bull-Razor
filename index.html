@@ -37,7 +37,7 @@ body{
   text-decoration:none;
   margin-left:20px;
   font-size:1rem;
-  transition: 0.25s;
+  transition:0.25s;
 }
 .nav a:hover{color:#a855f7;}
 .logo{color:#00ff9c;text-shadow:0 0 15px #00ff9c;font-size:1.5rem;font-weight:700}
@@ -57,23 +57,24 @@ body{
   margin:50px auto;
   cursor:pointer;
   animation:float 3s ease-in-out infinite;
-  user-drag:none; -webkit-user-drag:none;
 }
 @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-15px)}100%{transform:translateY(0)}}
 
 /* ===== BUTTON ===== */
-.buy-btn{
+.buy-btn, .wallet-btn{
   display:inline-block;
-  margin-top:25px;
-  padding:16px 42px;
+  margin-top:10px;
+  padding:14px 36px;
   border:2px solid #a855f7;
   color:#a855f7;
   border-radius:50px;
   text-decoration:none;
   box-shadow:0 0 30px #a855f7;
   transition:0.3s;
+  cursor:pointer;
+  background:transparent;
 }
-.buy-btn:hover{
+.buy-btn:hover, .wallet-btn:hover{
   background:#a855f7;
   color:black;
   transform:translateY(-3px);
@@ -115,10 +116,13 @@ body{
   box-shadow:0 0 25px rgba(0,255,156,.25);
   cursor:pointer;
   will-change:transform;
+  user-select:none;
 }
 .nft-card img{
   width:100%;
   border-radius:16px;
+  -webkit-user-drag:none;
+  user-drag:none;
 }
 .nft-card::after{
   content:"";
@@ -192,7 +196,6 @@ body{
   color:black;
   transform:translateY(-3px);
 }
-
 /* ===== SLASH FX ===== */
 #slash,#flash{pointer-events:none}
 #slash{
@@ -232,7 +235,7 @@ footer{text-align:center;margin:100px 0;opacity:.7}
     <a href="#tokenomics">Tokenomics</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#socials">Socials</a>
-    <a href="#buy">Buy</a>
+    <button class="wallet-btn" id="connectWallet">Connect Wallet</button>
   </div>
 </nav>
 
@@ -262,9 +265,7 @@ footer{text-align:center;margin:100px 0;opacity:.7}
 
 <div class="section" id="gallery">
   <h2 class="neon">BullRazor Collection</h2>
-  <div class="nft-grid" id="nftGrid">
-    <!-- NFT карточки будут добавлены JS -->
-  </div>
+  <div class="nft-grid" id="nftGrid"></div>
 </div>
 
 <div class="section" id="tokenomics">
@@ -317,6 +318,22 @@ function triggerFX(){
 }
 bull.addEventListener('click',triggerFX);
 
+// ===== WALLET =====
+const walletBtn = document.getElementById('connectWallet');
+let userWallet = null;
+walletBtn.addEventListener('click', async ()=>{
+  if(window.solana && window.solana.isPhantom){
+    try{
+      const resp = await window.solana.connect();
+      userWallet = resp.publicKey.toString();
+      walletBtn.textContent = `Wallet: ${userWallet.slice(0,6)}...${userWallet.slice(-4)}`;
+      alert('Wallet connected!');
+    }catch(e){alert('Connection failed!');}
+  }else{
+    alert('Phantom Wallet not found!');
+  }
+});
+
 // ===== NFT GENERATION =====
 const nftData = [
   {id:'#001', img:'assets/gallery/bull-1.webp', rarity:'COMMON'},
@@ -328,14 +345,14 @@ const nftData = [
 const nftGrid = document.getElementById('nftGrid');
 
 nftData.forEach(nft=>{
-  for(let i=1;i<=10;i++){ // по 10 штук каждой
+  for(let i=1;i<=10;i++){
     const card = document.createElement('div');
     card.className = 'nft-card';
     card.innerHTML = `
       <img src="${nft.img}" alt="BullRazor NFT ${nft.id}-${i}">
       <div class="nft-info"><span>${nft.id}-${i}</span><span class="${nft.rarity.toLowerCase()}">${nft.rarity}</span></div>
       <div class="nft-count">Available: 10</div>
-      <button class="buy-btn" style="margin-top:8px;">Buy NFT</button>
+      <button class="buy-btn">Buy NFT</button>
     `;
     nftGrid.appendChild(card);
 
@@ -343,6 +360,10 @@ nftData.forEach(nft=>{
     const countDiv = card.querySelector('.nft-count');
     let available = 10;
     btn.addEventListener('click', ()=>{
+      if(!userWallet){
+        alert('Connect your wallet first!');
+        return;
+      }
       if(available>0){
         available--;
         countDiv.textContent = `Available: ${available}`;
@@ -363,12 +384,23 @@ nftData.forEach(nft=>{
     });
     card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';});
 
-    // ===== RIGHT CLICK BLOCK =====
+    // ===== BLOCK RIGHT CLICK =====
     card.addEventListener('contextmenu', e=>{
       e.preventDefault();
       alert('Скачивание запрещено 😉');
     });
+
+    // ===== BLOCK DRAGGING =====
+    card.querySelector('img').ondragstart = e => e.preventDefault();
   }
+});
+
+// ===== BLOCK ALL IMAGE CONTEXT MENU =====
+document.querySelectorAll('img').forEach(img=>{
+  img.addEventListener('contextmenu', e=>{
+    e.preventDefault();
+    alert('Скачивание запрещено 😉');
+  });
 });
 </script>
 
