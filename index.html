@@ -4,19 +4,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BullRazor</title>
+<title>BullRaizer</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   font-family:'Orbitron',sans-serif;
   background:black;
   color:white;
-  user-select:none;
+  overflow-x:hidden;
+  user-select:none; /* защита от выделения */
+  -webkit-user-select:none;
 }
 
-/* NAV */
+/* ===== NAV ===== */
 .nav{
   position:fixed;top:0;width:100%;
   padding:16px 50px;
@@ -27,134 +32,333 @@ body{
   align-items:center;
   z-index:1000;
 }
-.nav a, .wallet-btn{color:#00ff9c;text-decoration:none;margin-left:20px;font-size:1rem;transition:0.25s;}
-.nav a:hover, .wallet-btn:hover{color:#a855f7;}
-.wallet-btn{border:2px solid #a855f7;padding:6px 16px;border-radius:30px;cursor:pointer;background:transparent;}
-.logo{color:#00ff9c;text-shadow:0 0 15px #00ff9c;font-size:1.5rem;font-weight:700;}
+.nav a{
+  color:#00ff9c;
+  text-decoration:none;
+  margin-left:20px;
+  font-size:1rem;
+  transition: 0.25s;
+}
+.nav a:hover{
+  color:#a855f7;
+}
+.logo{color:#00ff9c;text-shadow:0 0 15px #00ff9c;font-size:1.5rem;font-weight:700}
 
-/* HERO */
-.hero{min-height:100vh;width:100%;max-width:1200px;padding:160px 40px 60px;text-align:center;margin:0 auto;}
-.hero h1, .hero p{text-align:center;}
-.bull{width:min(25%,300px);max-width:320px;margin:50px auto;cursor:pointer;animation:float 3s ease-in-out infinite;}
-@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-15px)}100%{transform:translateY(0)}}
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  padding:160px 60px 60px;
+  text-align:center;
+}
+.hero h1{font-size:clamp(3rem,6vw,5rem)}
+.hero p{opacity:.8;margin-top:16px;line-height:1.6}
 
-/* SECTIONS */
-.section{max-width:1200px;width:100%;text-align:center;padding:50px 40px;margin:0 auto;}
-.nft-card{display:flex;flex-direction:column;align-items:center;margin:0 auto;background:linear-gradient(145deg,#0a0a0a,#111);border-radius:22px;padding:20px;width:320px;box-shadow:0 0 25px rgba(0,255,156,.25);transition:transform 0.3s;}
-.nft-mini-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin-top:10px;}
-.nft-mini-grid img{width:28%;border-radius:6px;-webkit-user-drag:none;user-drag:none;}
-.nft-info, .nft-count{text-align:center;margin-top:10px;font-size:.9rem;}
-.buy-btn{margin-top:12px;padding:12px 30px;border:2px solid #a855f7;color:#a855f7;border-radius:50px;text-decoration:none;background:transparent;cursor:pointer;box-shadow:0 0 25px #a855f7;}
-.buy-btn:hover{background:#a855f7;color:black;transform:translateY(-3px);box-shadow:0 0 50px #a855f7;}
+.bull{
+  width:min(20%,300px);
+  max-width:320px;
+  margin:50px auto;
+  cursor:pointer;
+  animation:float 3s ease-in-out infinite;
+  user-drag:none; -webkit-user-drag:none;
+}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
+}
 
-/* FOOTER */
-footer{text-align:center;margin:80px 0;opacity:.7;}
+/* ===== BUTTON ===== */
+.buy-btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:16px 42px;
+  border:2px solid #a855f7;
+  color:#a855f7;
+  border-radius:50px;
+  text-decoration:none;
+  box-shadow:0 0 30px #a855f7;
+  transition:0.3s;
+}
+.buy-btn:hover{
+  background:#a855f7;
+  color:black;
+  transform:translateY(-3px);
+  box-shadow:0 0 50px #a855f7,0 0 80px #a855f7;
+}
 
-/* MOBILE */
-@media screen and (max-width:1024px){.hero,.section,footer{padding:100px 20px 60px;max-width:100%;}.bull{width:40%;}.nft-card{width:90%;}.buy-btn{padding:10px 25px;font-size:.9rem;}.nft-mini-grid img{width:28%;}}
-@media screen and (max-width:600px){.bull{width:60%;}.nft-card{width:100%;}.buy-btn{width:80%;}.nft-mini-grid img{width:30%;}}
+/* ===== SECTIONS ===== */
+.section{
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 60px;
+  text-align:center;
+}
+.neon{color:#00ff9c;text-shadow:0 0 15px #00ff9c}
+
+/* ===== LORE ===== */
+.lore{
+  max-width:800px;
+  margin:30px auto 0;
+  font-size:0.95rem;
+  opacity:.8;
+  line-height:1.7;
+}
+
+/* ===== NFT ===== */
+.nft-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+  margin-top:50px;
+}
+.nft-card{
+  position:relative;
+  background:linear-gradient(145deg,#0a0a0a,#111);
+  border-radius:22px;
+  padding:12px;
+  transform-style:preserve-3d;
+  transition:0.35s;
+  box-shadow:0 0 25px rgba(0,255,156,.25);
+  cursor:pointer;
+  will-change:transform;
+  user-drag:none; -webkit-user-drag:none;
+}
+.nft-card img{
+  width:100%;
+  border-radius:16px;
+  pointer-events:none; /* защита от клика/сохранения */
+}
+
+.nft-card::after{
+  content:"";
+  position:absolute;inset:0;
+  border-radius:22px;
+  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(0,255,156,.35),transparent 60%);
+  opacity:0;transition:.3s;
+}
+.nft-card:hover::after{opacity:1}
+
+.nft-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:.8rem;
+  margin-top:12px;
+}
+.rare{color:#00ff9c}
+.epic{color:#a855f7}
+.legendary{color:#ff003c;text-shadow:0 0 12px #ff003c}
+
+/* ===== TOKENOMICS ===== */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+  margin-top:50px;
+}
+.card{
+  border:1px solid #00ff9c;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 0 25px rgba(0,255,156,.3);
+  font-size:.95rem;
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 45px rgba(0,255,156,.5);
+}
+
+/* ===== ROADMAP ===== */
+.roadmap-step{
+  max-width:700px;
+  margin:25px auto;
+  padding-left:20px;
+  border-left:4px solid #ff003c;
+  text-align:left;
+  opacity:.9;
+  transition:0.3s;
+}
+.roadmap-step:hover{
+  transform:translateX(5px);
+}
+
+/* ===== SOCIAL ===== */
+.socials a{
+  display:inline-block;
+  margin:12px;
+  padding:16px 30px;
+  border:1px solid #00ff9c;
+  border-radius:35px;
+  color:#00ff9c;
+  text-decoration:none;
+  box-shadow:0 0 22px rgba(0,255,156,.4);
+  transition:0.3s;
+}
+.socials a:hover{
+  background:#00ff9c;
+  color:black;
+  transform:translateY(-3px);
+}
+
+/* ===== SLASH FX ===== */
+#slash,#flash{pointer-events:none}
+#slash{
+  position:fixed;
+  top:50%;
+  left:-150%;
+  width:300%;
+  height:6px;
+  background:linear-gradient(90deg,transparent,#ff003c,#a855f7,#00ff9c,transparent);
+  box-shadow:0 0 40px #ff003c,0 0 80px #a855f7;
+  transform:rotate(-15deg);
+  opacity:0;
+  z-index:9999;
+}
+.slash-active{animation:slash .2s ease-out forwards}
+@keyframes slash{
+  from{left:-150%;opacity:1}
+  to{left:150%;opacity:0}
+}
+#flash{
+  position:fixed;inset:0;
+  background:white;opacity:0;
+  z-index:9998;
+}
+.flash-active{animation:flash .15s}
+@keyframes flash{
+  50%{opacity:.8}
+}
+.shake{animation:shake .18s}
+@keyframes shake{
+  25%{transform:translate(-4px,2px)}
+  50%{transform:translate(4px,-2px)}
+  75%{transform:translate(-3px,2px)}
+}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;margin:100px 0;opacity:.7}
 </style>
 </head>
+
 <body>
 
 <nav class="nav">
-  <div class="logo">BullRazor</div>
+  <div class="logo">BullRaizer</div>
   <div>
     <a href="#gallery">NFT</a>
     <a href="#tokenomics">Tokenomics</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#socials">Socials</a>
-    <button class="wallet-btn" id="connectWallet">Connect Wallet</button>
+    <a href="#buy">Buy</a>
   </div>
 </nav>
 
+<div id="slash"></div>
+<div id="flash"></div>
+<audio id="slashSound" src="assets/sounds/slash.mp3" preload="auto"></audio>
+
 <div class="hero">
-  <h1>BullRazor</h1>
+  <h1 class="neon">BullRaizer</h1>
   <p>Unleash the Bull. Cut the Bear.</p>
-  <img src="assets/bull.png" class="bull" alt="BullRazor Bull">
+
+  <p class="lore">
+    When fear ruled the market and bears pushed everything into red,
+    one bull refused to kneel.<br><br>
+    BullRaizer is not a promise, not a roadmap to riches — 
+    it is a symbol of conviction, volatility and culture.
+    A meme born from chaos, sharpened by belief.
+  </p>
+
+  <img src="assets/bull.png" class="bull" alt="BullRaizer Bull">
+
+  <a id="buy"></a>
+  <a href="https://jup.ag" target="_blank" class="buy-btn">
+    BUY ON SOLANA DEX
+  </a>
 </div>
 
 <div class="section" id="gallery">
-  <h2>BullRazor Collection</h2>
-  <div class="nft-grid" id="nftGrid"></div>
+  <h2 class="neon">BullRaizer Collection</h2>
+  <div class="nft-grid">
+    <div class="nft-card"><img src="assets/gallery/bull-1.webp" alt="BullRaizer NFT #001"><div class="nft-info"><span>#001</span><span>COMMON</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-2.webp" alt="BullRaizer NFT #002"><div class="nft-info"><span>#002</span><span class="rare">RARE</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-3.webp" alt="BullRaizer NFT #003"><div class="nft-info"><span>#003</span><span class="epic">EPIC</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-4.webp" alt="BullRaizer NFT #004"><div class="nft-info"><span>#004</span><span>COMMON</span></div></div>
+    <div class="nft-card"><img src="assets/gallery/bull-5.webp" alt="BullRaizer NFT #005"><div class="nft-info"><span>#005</span><span class="legendary">LEGENDARY</span></div></div>
+  </div>
 </div>
 
 <div class="section" id="tokenomics">
-  <h2>Tokenomics</h2>
-  <p>🔥 Total Supply: 1,000,000,000</p>
-  <p>💧 Liquidity Pool: 800,000,000</p>
+  <h2 class="neon">Tokenomics</h2>
+  <div class="cards">
+    <div class="card">🔥 Total Supply<br><b>1,000,000,000</b><br>100%</div>
+    <div class="card">💧 Liquidity Pool<br><b>800,000,000</b><br>80% (Locked)</div>
+    <div class="card">👥 Community & Airdrops<br><b>150,000,000</b><br>15%</div>
+    <div class="card">⚔️ Dev Allocation<br><b>50,000,000</b><br>5% (Vesting)</div>
+  </div>
 </div>
 
 <div class="section" id="roadmap">
-  <h2>Roadmap</h2>
-  <p>Phase I — Launch</p>
-  <p>Phase II — Community</p>
+  <h2 class="neon">Roadmap</h2>
+  <div class="roadmap-step"><b>Phase I — Birth of the Bull</b><br>Launch, liquidity, fair distribution.</div>
+  <div class="roadmap-step"><b>Phase II — The Herd Forms</b><br>Community, culture, memes.</div>
+  <div class="roadmap-step"><b>Phase III — Bull Market</b><br>No promises. Just presence.</div>
 </div>
 
-<div class="section" id="socials">
-  <h2>Join the Herd</h2>
-  <p>Telegram | X (Twitter)</p>
+<div class="section socials" id="socials">
+  <h2 class="neon">Join the Herd</h2>
+  <a href="https://t.me/BullRaizer" target="_blank">Telegram</a>
+  <a href="https://x.com/BullRaizer" target="_blank">X (Twitter)</a>
 </div>
 
 <footer>
-  Built on Solana ⚡ BullRazor<br>
+  Built on Solana ⚡ BullRaizer<br>
   <small>No financial advice. Meme only.</small>
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
-  // WALLET
-  let userWallet = null;
-  document.getElementById('connectWallet').addEventListener('click', async ()=>{
-    if(window.solana && window.solana.isPhantom){
-      try{
-        const resp = await window.solana.connect();
-        userWallet = resp.publicKey.toString();
-        document.getElementById('connectWallet').textContent = `Wallet: ${userWallet.slice(0,6)}...${userWallet.slice(-4)}`;
-        alert('Wallet connected!');
-      }catch(e){alert('Connection failed!');}
-    }else{alert('Phantom Wallet not found!');}
-  });
+// ===== SLASH FX =====
+const slash=document.getElementById('slash');
+const flash=document.getElementById('flash');
+const sound=document.getElementById('slashSound');
+const bull=document.querySelector('.bull');
 
-  // NFT
-  const nftData = [{id:'#001', img:'assets/gallery/bull-collection.webp', rarity:'MIXED', total:10}];
-  const nftGrid = document.getElementById('nftGrid');
-  const storedCounts = JSON.parse(localStorage.getItem('nftCounts')) || {};
-  nftData.forEach(nft=>{ if(storedCounts[nft.id]==undefined) storedCounts[nft.id]=nft.total; });
-  localStorage.setItem('nftCounts', JSON.stringify(storedCounts));
+function triggerFX(){
+  slash.classList.remove('slash-active');
+  flash.classList.remove('flash-active');
+  document.body.classList.remove('shake');
+  void slash.offsetWidth;
+  slash.classList.add('slash-active');
+  flash.classList.add('flash-active');
+  document.body.classList.add('shake');
+  if(sound){
+    sound.currentTime=0;
+    sound.play().catch(()=>{});
+  }
+}
+bull.addEventListener('click',triggerFX);
 
-  nftData.forEach(nft=>{
-    const card = document.createElement('div'); card.className='nft-card';
-    let miniHTML='<div class="nft-mini-grid">';
-    for(let i=0;i<nft.total;i++){ miniHTML += `<img src="${nft.img}" alt="${nft.id}">`; }
-    miniHTML+='</div>';
-    card.innerHTML=`<div class="nft-info">${nft.id} - ${nft.rarity}</div>${miniHTML}<div class="nft-count">Available: ${storedCounts[nft.id]}</div><button class="buy-btn">Buy NFT</button>`;
-    nftGrid.appendChild(card);
-    const btn = card.querySelector('button');
-    const countDiv = card.querySelector('.nft-count');
-    btn.addEventListener('click', ()=>{
-      if(!userWallet){alert('Connect wallet first!'); return;}
-      if(storedCounts[nft.id]>0){
-        storedCounts[nft.id]--; countDiv.textContent=`Available: ${storedCounts[nft.id]}`;
-        localStorage.setItem('nftCounts',JSON.stringify(storedCounts));
-        alert(`You bought 1 ${nft.id}!`);
-      }else{alert('Sold out!');}
-    });
-    card.addEventListener('mousemove', e=>{
-      const r = card.getBoundingClientRect();
-      const x = e.clientX - r.left, y = e.clientY - r.top;
-      card.style.transform=`rotateX(${-(y-r.height/2)/15}deg) rotateY(${(x-r.width/2)/15}deg) scale(1.06)`;
-    });
-    card.addEventListener('mouseleave',()=>{card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';});
-    card.addEventListener('contextmenu', e=>e.preventDefault());
-    card.querySelectorAll('img').forEach(img=>img.ondragstart=e=>e.preventDefault());
+// ===== NFT TILT =====
+document.querySelectorAll('.nft-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=e.clientX-r.left;
+    const y=e.clientY-r.top;
+    card.style.transform=`rotateX(${-(y-r.height/2)/18}deg) rotateY(${(x-r.width/2)/18}deg) scale(1.06)`;
+    card.style.setProperty('--x',`${x}px`);
+    card.style.setProperty('--y',`${y}px`);
   });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
+  });
+});
 
-  // блокировка всех img
-  document.querySelectorAll('img').forEach(img=>{
-    img.addEventListener('contextmenu', e=>e.preventDefault());
-    img.ondragstart=e=>e.preventDefault();
-  });
+// ===== RIGHT CLICK BLOCK =====
+document.addEventListener('contextmenu', e => {
+  if(e.target.tagName === 'IMG'){
+    e.preventDefault();
+    alert('Скачивание запрещено 😉');
+  }
 });
 </script>
 
